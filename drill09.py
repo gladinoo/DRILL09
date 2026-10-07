@@ -11,6 +11,7 @@ x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
 dir_x = 0
 dir_y = 0
+face_dir = 1  # 1: 우측, -1: 좌측
 
 
 def handle_events():
@@ -47,6 +48,13 @@ while running:
     character.clip_draw(frame * 100, 300, 100, 100, x, y)
     update_canvas()
     handle_events()
+
+    # 좌/우 이동 중일 때만 바라보는 방향 변경 (위/아래 이동 시에는 기존 방향 유지)
+    if dir_x > 0:
+        face_dir = 1
+    elif dir_x < 0:
+        face_dir = -1
+
     x += dir_x * 5
     y += dir_y * 5
     delay(0.01)
