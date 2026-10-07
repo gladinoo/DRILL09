@@ -45,7 +45,17 @@ def handle_events():
 while running:
     clear_canvas()
     tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-    character.clip_draw(frame * 100, 300, 100, 100, x, y)
+
+    # 이동 상태 및 방향에 따른 애니메이션 행(row) 결정
+    is_moving = (dir_x != 0 or dir_y != 0)
+    if is_moving:
+        # RUN 상태: 우측 1, 좌측 0
+        row = 1 if face_dir == 1 else 0
+    else:
+        # IDLE 상태: 우측 3, 좌측 2
+        row = 3 if face_dir == 1 else 2
+
+    character.clip_draw(frame * 100, row * 100, 100, 100, x, y)
     update_canvas()
     handle_events()
 
