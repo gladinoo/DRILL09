@@ -1,6 +1,9 @@
 from pico2d import *
 
 TUK_WIDTH, TUK_HEIGHT = 1280, 1024
+BOY_WIDTH, BOY_HEIGHT = 100, 100
+BOY_SPEED = 5
+
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
 
 tuk_ground = load_image('TUK_GROUND.png')
@@ -11,7 +14,7 @@ x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
 dir_x = 0
 dir_y = 0
-face_dir = 1  # 1: 우측, -1: 좌측
+face_dir = 1  # 1: 오른쪽 바라봄, -1: 왼쪽 바라봄
 
 
 def handle_events():
@@ -65,9 +68,11 @@ while running:
     elif dir_x < 0:
         face_dir = -1
 
-    # 화면 경계를 벗어나지 않도록 좌표 제한 (캐릭터 크기: 100x100)
-    x = clamp(50, x + dir_x * 5, TUK_WIDTH - 50)
-    y = clamp(50, y + dir_y * 5, TUK_HEIGHT - 50)
+    # 화면 경계를 벗어나지 않도록 좌표 제한
+    half_w = BOY_WIDTH // 2
+    half_h = BOY_HEIGHT // 2
+    x = clamp(half_w, x + dir_x * BOY_SPEED, TUK_WIDTH - half_w)
+    y = clamp(half_h, y + dir_y * BOY_SPEED, TUK_HEIGHT - half_h)
 
     frame = (frame + 1) % 8
     delay(0.05)
