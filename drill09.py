@@ -57,6 +57,7 @@ while running:
 
     x += dir_x * 5
     y += dir_y * 5
-    delay(0.01)
+    frame = (frame + 1) % 8
+    delay(0.05)
 
 close_canvas()
