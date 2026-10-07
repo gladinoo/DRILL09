@@ -45,22 +45,8 @@ def handle_events():
                 dir_y += 1
 
 
-while running:
-    clear_canvas()
-    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-
-    # 이동 상태 및 방향에 따른 애니메이션 행(row) 결정
-    is_moving = (dir_x != 0 or dir_y != 0)
-    if is_moving:
-        # RUN 상태: 우측 1, 좌측 0
-        row = 1 if face_dir == 1 else 0
-    else:
-        # IDLE 상태: 우측 3, 좌측 2
-        row = 3 if face_dir == 1 else 2
-
-    character.clip_draw(frame * 100, row * 100, 100, 100, x, y)
-    update_canvas()
-    handle_events()
+def update():
+    global x, y, frame, face_dir
 
     # 좌/우 이동 중일 때만 바라보는 방향 변경 (위/아래 이동 시에는 기존 방향 유지)
     if dir_x > 0:
@@ -75,6 +61,27 @@ while running:
     y = clamp(half_h, y + dir_y * BOY_SPEED, TUK_HEIGHT - half_h)
 
     frame = (frame + 1) % 8
+
+
+def render():
+    clear_canvas()
+    tuk_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
+
+    # 이동 상태 및 방향에 따른 애니메이션 행(row) 결정
+    is_moving = (dir_x != 0 or dir_y != 0)
+    if is_moving:
+        row = 1 if face_dir == 1 else 0
+    else:
+        row = 3 if face_dir == 1 else 2
+
+    character.clip_draw(frame * 100, row * 100, BOY_WIDTH, BOY_HEIGHT, x, y)
+    update_canvas()
+
+
+while running:
+    handle_events()
+    update()
+    render()
     delay(0.05)
 
 close_canvas()
