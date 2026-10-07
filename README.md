@@ -18,6 +18,7 @@
 ## 📂 파일 구성
 - `drill09.py`: Drill #9 메인 실행 코드
 - `move_character_with_key.py`: 수업 실습 예제명 호환 실행 스크립트
+- `run.bat`: 윈도우 환경 빠른 원클릭 실행 배치 파일
 - `animation_sheet.png`: 캐릭터 스프라이트 시트 (802 x 402)
 - `TUK_GROUND.png`: 배경 이미지 (1280 x 1024)
 - `README.md`: 프로젝트 개요 및 과제 설명
