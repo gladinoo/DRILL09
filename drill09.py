@@ -65,8 +65,10 @@ while running:
     elif dir_x < 0:
         face_dir = -1
 
-    x += dir_x * 5
-    y += dir_y * 5
+    # 화면 경계를 벗어나지 않도록 좌표 제한 (캐릭터 크기: 100x100)
+    x = clamp(50, x + dir_x * 5, TUK_WIDTH - 50)
+    y = clamp(50, y + dir_y * 5, TUK_HEIGHT - 50)
+
     frame = (frame + 1) % 8
     delay(0.05)
 
